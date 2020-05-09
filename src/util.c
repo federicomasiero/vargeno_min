@@ -134,6 +134,65 @@ char* minimizer(const char *kmer) {
     return min;
 }
 
+char* minimizerSNP(const char *kmer, unsigned int index, char var) {
+    char seq[SSL];
+    char reverse[SSL];
+    char min[K];
+    char tmpseq[K];
+    char tmprev[K];
+    for(int i = 0; i < SSL; i++) {
+        seq[i] = (char) (kmer + i);
+        reverse[SSL - i - 1] = rev(seq[i]);
+        if(i < K) {
+            min[i] = 'Z';
+        }
+    }
+    seq[SSL - 1 - index] = var;
+    reverse[index] = rev(var);
+    for(int i = 0; i < SSL - K + 1; i++){
+        if(index > (SSL - K - 1) && index < (K - 1)) {
+            for(int j = 0; j < K; j++) {
+                tmpseq[j] = seq[i + j];
+                tmprev[j] = reverse[i + j];
+            }
+        }
+        else if(index < (SSL - K)) {
+            // Variation -> SSL - K character ending the sequence. => 0 <= index < SSL - K
+            if(i + K >= SSL - index) {
+                for(int j = 0; j < K; j++) {
+                    tmpseq[j] = seq[i + j];
+                }
+            }
+            if(i <= index) {
+                for(int j = 0; j < K; j++) {
+                    tmprev[j] = reverse[i + j];
+                }
+            }
+        }
+        else {
+            // Variation -> SSL - K character starting the sequence. => K - 1 < index < SSL
+            if(i + K >= SSL - index) {
+                for(int j = 0; j < K; j++) {
+                    tmprev[j] = reverse[i + j];
+                }
+            }
+            if(i <= index) {
+                for(int j = 0; j < K; j++) {
+                    tmpseq[j] = seq[i + j];
+                }
+            }
+        }
+        if(strcmp(tmpseq, min) < 0) strcpy_s(min, K, tmpseq);
+        if(strcmp(tmprev, min) < 0) strcpy_s(min, K, tmprev);
+    }
+    free(seq);
+    free(reverse);
+    free(min);
+    free(tmprev);
+    free(tmpseq);
+    return min;
+}
+
 kmer_t encode_kmer(const char *kmer, bool *kmer_had_n)
 {
 #define KMER_ADD_BASE(x) (encoded_kmer |= (x))
