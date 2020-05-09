@@ -86,13 +86,61 @@ uint64_t encode_base(const char base)
 	}
 }
 
+static char rev(const char c) {
+    switch (c) {
+        case 'A':
+        case 'a':
+            return 'T';
+        case 'C':
+        case 'c':
+            return 'G';
+        case 'G':
+        case 'g':
+            return 'C';
+        case 'T':
+        case 't':
+            return 'A';
+        default:
+            return 'N';
+    }
+}
+
+char* minimizer(const char *kmer) {
+    char seq[SSL];
+    char reverse[SSL];
+    char min[K];
+    char tmpseq[K];
+    char tmprev[K];
+    for(int i = 0; i < SSL; i++) {
+        seq[i] = (char) (kmer + i);
+        reverse[SSL - i - 1] = rev(seq[i]);
+        if(i < K) {
+            min[i] = 'Z';
+        }
+    }
+    for(int i = 0; i < SSL - K + 1; i++){
+        for(int j = 0; j < K; j++){
+            tmpseq[j] = seq[i + j];
+            tmprev[j] = reverse[i + j];
+        }
+        if(strcmp(tmpseq, min) < 0) strcpy_s(min, K, tmpseq);
+        if(strcmp(tmprev, min) < 0) strcpy_s(min, K, tmprev);
+    }
+    free(seq);
+    free(reverse);
+    free(min);
+    free(tmprev);
+    free(tmpseq);
+    return min;
+}
+
 kmer_t encode_kmer(const char *kmer, bool *kmer_had_n)
 {
 #define KMER_ADD_BASE(x) (encoded_kmer |= (x))
 
 	kmer_t encoded_kmer = 0UL;
-	char *base = (char *)&kmer[SSL - 1];
-	for (int i = 0; i < SSL; i++) {
+	char *base = (char *)&kmer[31];
+	for (int i = 0; i < 32; i++) {
 		encoded_kmer <<= 2;
 		switch (*base--) {
 		case 'A': case 'a': KMER_ADD_BASE(0UL); break;
@@ -112,7 +160,7 @@ kmer_t encode_kmer(const char *kmer, bool *kmer_had_n)
 
 kmer_t shift_kmer(const kmer_t kmer, const char next_base)
 {
-#define KMER_SHIFT(x) ((kmer >> 2) | ((x) << 2*(SSL - 1)))
+#define KMER_SHIFT(x) ((kmer >> 2) | ((x) << 62))
 
 	switch (next_base) {
 	case 'A': case 'a': return KMER_SHIFT(0UL);
