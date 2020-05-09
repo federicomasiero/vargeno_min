@@ -24,6 +24,9 @@
 #define HI24(kmer) (((kmer) & 0xFFFFFF0000000000) >> 40)
 #define LO40(kmer) ((kmer) & 0x000000FFFFFFFFFF)
 
+#define K 32
+#define SSL 34
+
 void serialize_uint64(FILE *out, const uint64_t x);
 
 void serialize_uint32(FILE *out, const uint32_t x);

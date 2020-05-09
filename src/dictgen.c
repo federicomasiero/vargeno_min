@@ -14,17 +14,17 @@ static size_t ref_to_constituent_kmers(struct kmer_info *kmers,
                                        const size_t ref_len,
                                        uint32_t *index)
 {
-	assert(ref_len >= 32);
-	const size_t kmers_len_max = ref_len - 32 + 1;
+	assert(ref_len >= SSL);
+	const size_t kmers_len_max = ref_len - SSL + 1;
 	size_t kmers_len_true = 0;
 
-	kmer_t kmer;
+	unsigned int kmer;
 	uint32_t index_true = *index;
 	bool need_full_encode = true;
 	bool kmer_had_n;
 
 	for (size_t i = 0; i < kmers_len_max; i++) {
-		const char next_base = ref[i + 32 - 1];
+		const char next_base = ref[i + SSL - 1];
 
 		if (need_full_encode) {
 			kmer = encode_kmer(&ref[i], &kmer_had_n);
@@ -46,7 +46,7 @@ static size_t ref_to_constituent_kmers(struct kmer_info *kmers,
 		++index_true;
 	}
 
-	*index = index_true + 32 - 1;  // since last k-mer index != last base index
+	*index = index_true + SSL - 1;  // since last k-mer index != last base index
 	return kmers_len_true;
 }
 
@@ -280,7 +280,7 @@ void make_ref_dict(SeqVec ref, FILE *out)
 
 	size_t total_kmers = 0;
 	for (size_t i = 0; i < ref_len; i++) {
-		total_kmers += ref.seqs[i].size - 32 + 1;
+		total_kmers += ref.seqs[i].size - SSL + 1;
 	}
 
 	struct kmer_info *kmers = (struct kmer_info *)malloc(total_kmers * sizeof(*kmers));
@@ -791,4 +791,18 @@ void make_snp_dict_from_vcf(SeqVec ref, FILE *snp_file, FILE *out, bool **snp_lo
 #undef ALT_FIELD
 #undef INFO_FIELD
 #undef FREQS_FIELD
+}
+
+kmer_t minimizer(unsigned int s) {
+    string seq = (string) s;
+    rev = s;
+    reverse(rev.begin(), rev.end());
+    for(char& c: s) {
+        c = rev(c);
+    }
+    kmer_t min = UINT64_MAX;
+    for(int i = 0; i < SSL - K +1; i++) {
+
+    }
+    return min;
 }
