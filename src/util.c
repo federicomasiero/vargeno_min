@@ -112,7 +112,7 @@ char* minimizer(const char *kmer) {
     char tmpseq[K];
     char tmprev[K];
     for(int i = 0; i < SSL; i++) {
-        seq[i] = (char) (kmer + i);
+        seq[i] = (char) *(kmer + i);
         reverse[SSL - i - 1] = rev(seq[i]);
         if(i < K) {
             min[i] = 'Z';
@@ -123,8 +123,8 @@ char* minimizer(const char *kmer) {
             tmpseq[j] = seq[i + j];
             tmprev[j] = reverse[i + j];
         }
-        if(strcmp(tmpseq, min) < 0) strcpy_s(min, K, tmpseq);
-        if(strcmp(tmprev, min) < 0) strcpy_s(min, K, tmprev);
+        if(strcmp(tmpseq, min) < 0) strcpy(min, tmpseq);
+        if(strcmp(tmprev, min) < 0) strcpy(min, tmprev);
     }
     free(seq);
     free(reverse);
@@ -141,7 +141,7 @@ char* minimizerSNP(const char *kmer, unsigned int index, char var) {
     char tmpseq[K];
     char tmprev[K];
     for(int i = 0; i < SSL; i++) {
-        seq[i] = (char) (kmer + i);
+        seq[i] = (char) *(kmer + i);
         reverse[SSL - i - 1] = rev(seq[i]);
         if(i < K) {
             min[i] = 'Z';
@@ -182,8 +182,8 @@ char* minimizerSNP(const char *kmer, unsigned int index, char var) {
                 }
             }
         }
-        if(strcmp(tmpseq, min) < 0) strcpy_s(min, K, tmpseq);
-        if(strcmp(tmprev, min) < 0) strcpy_s(min, K, tmprev);
+        if(strcmp(tmpseq, min) < 0) strcpy(min, tmpseq);
+        if(strcmp(tmprev, min) < 0) strcpy(min, tmprev);
     }
     free(seq);
     free(reverse);

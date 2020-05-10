@@ -25,5 +25,4 @@ add_executable(vargeno ${SOURCE_FILES}
         src/test_bf.cc
         src/util.c
         src/vartype.cc
-        src/vartype.h
         )

@@ -21,24 +21,6 @@ CMakeFiles/vargeno.dir/src/util.c.obj
  C:/Users/feder/projects/vargeno/src/util.c
  C:/Users/feder/projects/vargeno/src/util.h
  C:/Users/feder/projects/vargeno/src/vartype.h
-CMakeFiles/vargeno.dir/src/BF.cc.obj
- C:/Users/feder/projects/vargeno/src/BF.cc
- C:/Users/feder/projects/vargeno/src/BF.h
- C:/Users/feder/projects/vargeno/src/Kmers.h
- C:/Users/feder/projects/vargeno/src/roaring.hh
- C:/Users/feder/projects/vargeno/src/sbt_util.h
-CMakeFiles/vargeno.dir/src/BloomTree.cc.obj
- C:/Users/feder/projects/vargeno/src/BF.h
- C:/Users/feder/projects/vargeno/src/BloomTree.cc
- C:/Users/feder/projects/vargeno/src/BloomTree.h
- C:/Users/feder/projects/vargeno/src/Heap.h
- C:/Users/feder/projects/vargeno/src/Kmers.h
- C:/Users/feder/projects/vargeno/src/ThreadPool.h
- C:/Users/feder/projects/vargeno/src/gzstream.h
- C:/Users/feder/projects/vargeno/src/roaring.hh
- C:/Users/feder/projects/vargeno/src/sbt_util.h
- C:/Users/feder/projects/vargeno/src/util.h
- C:/Users/feder/projects/vargeno/src/vartype.h
 CMakeFiles/vargeno.dir/src/Count.cc.obj
  C:/Users/feder/projects/vargeno/src/BF.h
  C:/Users/feder/projects/vargeno/src/Count.cc
@@ -53,21 +35,71 @@ CMakeFiles/vargeno.dir/src/Kmers.cc.obj
 CMakeFiles/vargeno.dir/src/allsome_util.cc.obj
  C:/Users/feder/projects/vargeno/src/allsome_util.cc
  C:/Users/feder/projects/vargeno/src/allsome_util.h
-CMakeFiles/vargeno.dir/src/bit_check.cc.obj
- C:/Users/feder/projects/vargeno/src/bit_check.cc
-CMakeFiles/vargeno.dir/src/gbf.cc.obj
- C:/Users/feder/projects/vargeno/src/allsome_util.h
- C:/Users/feder/projects/vargeno/src/gbf.cc
- C:/Users/feder/projects/vargeno/src/generate_bf.h
- C:/Users/feder/projects/vargeno/src/util.h
- C:/Users/feder/projects/vargeno/src/vartype.h
 CMakeFiles/vargeno.dir/src/generate_bf.cc.obj
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/bit_vector_il.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/bit_vectors.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/bits.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/config.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/hyb_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/int_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/int_vector_buffer.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/io.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/iterators.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/memory_management.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/ram_fs.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support_scan.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support_v.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support_v5.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rrr_helper.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rrr_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rrr_vector_15.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/sd_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/sdsl_concepts.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/select_support.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/select_support_mcl.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/select_support_scan.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/sfstream.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/structure_tree.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/uint128_t.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/uint256_t.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/uintx_t.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/util.hpp
  C:/Users/feder/projects/vargeno/src/allsome_util.h
  C:/Users/feder/projects/vargeno/src/generate_bf.cc
  C:/Users/feder/projects/vargeno/src/generate_bf.h
  C:/Users/feder/projects/vargeno/src/util.h
  C:/Users/feder/projects/vargeno/src/vartype.h
 CMakeFiles/vargeno.dir/src/kmer_counting.cc.obj
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/bit_vector_il.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/bit_vectors.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/bits.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/config.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/hyb_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/int_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/int_vector_buffer.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/io.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/iterators.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/memory_management.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/ram_fs.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support_scan.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support_v.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support_v5.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rrr_helper.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rrr_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rrr_vector_15.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/sd_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/sdsl_concepts.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/select_support.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/select_support_mcl.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/select_support_scan.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/sfstream.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/structure_tree.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/uint128_t.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/uint256_t.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/uintx_t.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/util.hpp
  C:/Users/feder/projects/vargeno/src/allsome_util.h
  C:/Users/feder/projects/vargeno/src/generate_bf.h
  C:/Users/feder/projects/vargeno/src/kmer_counting.cc
@@ -75,12 +107,70 @@ CMakeFiles/vargeno.dir/src/kmer_counting.cc.obj
  C:/Users/feder/projects/vargeno/src/util.h
  C:/Users/feder/projects/vargeno/src/vartype.h
 CMakeFiles/vargeno.dir/src/kmerc.cc.obj
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/bit_vector_il.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/bit_vectors.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/bits.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/config.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/hyb_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/int_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/int_vector_buffer.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/io.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/iterators.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/memory_management.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/ram_fs.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support_scan.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support_v.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support_v5.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rrr_helper.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rrr_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rrr_vector_15.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/sd_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/sdsl_concepts.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/select_support.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/select_support_mcl.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/select_support_scan.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/sfstream.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/structure_tree.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/uint128_t.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/uint256_t.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/uintx_t.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/util.hpp
  C:/Users/feder/projects/vargeno/src/allsome_util.h
  C:/Users/feder/projects/vargeno/src/generate_bf.h
  C:/Users/feder/projects/vargeno/src/kmerc.cc
  C:/Users/feder/projects/vargeno/src/util.h
  C:/Users/feder/projects/vargeno/src/vartype.h
 CMakeFiles/vargeno.dir/src/qv.cc.obj
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/bit_vector_il.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/bit_vectors.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/bits.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/config.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/hyb_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/int_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/int_vector_buffer.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/io.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/iterators.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/memory_management.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/ram_fs.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support_scan.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support_v.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support_v5.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rrr_helper.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rrr_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rrr_vector_15.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/sd_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/sdsl_concepts.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/select_support.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/select_support_mcl.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/select_support_scan.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/sfstream.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/structure_tree.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/uint128_t.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/uint256_t.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/uintx_t.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/util.hpp
  C:/Users/feder/projects/vargeno/src/allsome_util.h
  C:/Users/feder/projects/vargeno/src/dict_filt.h
  C:/Users/feder/projects/vargeno/src/dictgen.h
@@ -93,23 +183,36 @@ CMakeFiles/vargeno.dir/src/qv.cc.obj
 CMakeFiles/vargeno.dir/src/sbt_util.cc.obj
  C:/Users/feder/projects/vargeno/src/sbt_util.cc
  C:/Users/feder/projects/vargeno/src/sbt_util.h
-CMakeFiles/vargeno.dir/src/test_bf.cc.obj
- C:/Users/feder/projects/vargeno/src/BF.h
- C:/Users/feder/projects/vargeno/src/BloomTree.h
- C:/Users/feder/projects/vargeno/src/Count.h
- C:/Users/feder/projects/vargeno/src/Heap.h
- C:/Users/feder/projects/vargeno/src/Kmers.h
- C:/Users/feder/projects/vargeno/src/ThreadPool.h
- C:/Users/feder/projects/vargeno/src/allsome_util.h
- C:/Users/feder/projects/vargeno/src/dict_filt.h
- C:/Users/feder/projects/vargeno/src/dictgen.h
- C:/Users/feder/projects/vargeno/src/fasta_parser.h
- C:/Users/feder/projects/vargeno/src/roaring.hh
- C:/Users/feder/projects/vargeno/src/sbt_util.h
- C:/Users/feder/projects/vargeno/src/test_bf.cc
- C:/Users/feder/projects/vargeno/src/util.h
- C:/Users/feder/projects/vargeno/src/vartype.h
 CMakeFiles/vargeno.dir/src/vartype.cc.obj
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/bit_vector_il.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/bit_vectors.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/bits.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/config.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/hyb_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/int_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/int_vector_buffer.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/io.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/iterators.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/memory_management.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/ram_fs.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support_scan.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support_v.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rank_support_v5.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rrr_helper.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rrr_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/rrr_vector_15.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/sd_vector.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/sdsl_concepts.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/select_support.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/select_support_mcl.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/select_support_scan.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/sfstream.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/structure_tree.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/uint128_t.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/uint256_t.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/uintx_t.hpp
+ C:/Users/feder/projects/vargeno/sdsl-lite/include/sdsl/util.hpp
  C:/Users/feder/projects/vargeno/src/allsome_util.h
  C:/Users/feder/projects/vargeno/src/dict_filt.h
  C:/Users/feder/projects/vargeno/src/dictgen.h
