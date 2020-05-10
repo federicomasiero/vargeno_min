@@ -106,37 +106,17 @@ int BFGenerator::constructBfFromGenomeseq(string bf_filename, bool is_canonical 
 
 	for (auto it = genome_vector.begin(); it != genome_vector.end(); ++it) {
 		int ref_len = it->seq.size();
-		assert(ref_len >= KMER_SIZE);
-		const size_t kmers_len_max = ref_len - KMER_SIZE + 1;
-		
-		bool need_full_encode = true;
+		assert(ref_len >= SSL);
+		const size_t kmers_len_max = ref_len - SSL + 1;
+
 		bool kmer_had_n;
 		kmer_t kmer;
 		/*insert kmers into bloom filter*/
 		for (size_t i = 0; i < kmers_len_max; i++) {
-			const char next_base = it->seq[i + KMER_SIZE - 1];
-			
-			/*need to generate a new 32mer from pos i
-				if the 32mer contains N
-					then need_full_encode, set i to the next pos after N, and continue
-				else
-					set need_full_encode = false, encode kmer, add to bloom filter
-			*/
-			if (need_full_encode) {
-				string kmer_string = it->seq.substr(i, KMER_SIZE);
-				kmer = encode_kmer(kmer_string.c_str(), &kmer_had_n);
-				need_full_encode = kmer_had_n;
-			}
-			/*else if need_full_code == false && next_base != 'N'*/
-			else if (next_base != 'N' && next_base != 'n') {
-				kmer = shift_kmer(kmer, next_base);
-				kmer_had_n = false;
-			}
-			/*else if need_full_code == false && next_base == 'N', i should goto pos(N)*/
-			else {
-				need_full_encode = true;
-				kmer_had_n = true;
-			}
+
+            string kmer_string = it->seq.substr(i, SSL);
+            char *seq = minimizer(kmer_string.c_str());
+            kmer = encode_kmer(seq, &kmer_had_n);
 
 			if (!kmer_had_n) {
 				/*
@@ -221,7 +201,7 @@ int BFGenerator::constructBfFromVcf(const string & vcf_filename, string bf_filen
 			pre_chr_name = chr_name;
 		}
 
-		if (pos < KMER_SIZE || (pos + KMER_SIZE) > seq.size()) continue;
+		if (pos < SSL || (pos + SSL) > seq.size()) continue;
 
 		char ref_nt = ref_seq[0];
 		char alt_nt = alt_seq[0];
@@ -230,21 +210,18 @@ int BFGenerator::constructBfFromVcf(const string & vcf_filename, string bf_filen
 		if (ref_nt != seq[pos] || ref_nt == alt_nt) continue;
 
 		/*get the kmer before pos*/
-		string kmer_string = seq.substr(pos - KMER_SIZE, KMER_SIZE);
+		string kmer_string = seq.substr(pos - SSL, SSL);
 
 		/*if the kmer before pos has N, then skip current SNP*/
 		bool has_n = false;
 
-		kmer_t kmer = encode_kmer(kmer_string.c_str(), &has_n);
-		if (has_n) continue;
-		/*generate all kmers cover current SNPs, and insert into bloom filter*/
 		/*
 		there is potential problem of this for loop:
 			if a SNP is in the area with N inside, then some kmers might be added into bloom filter
 			this will only slightly increase false positives, but that is fine, no big deal
 		*/
 		//vector<uint64_t> kmer_lo_list;
-		for (unsigned int i = 0; i < KMER_SIZE; i++) {
+		for (unsigned int i = 0; i < SSL; i++) {
 			/* the first next base is alternative allele, the rest is reference nt */
 			const char next_base = (i ? seq[pos + i] : alt_nt); // if i ==0, change it to alternative allele, if i > 0, then it is the original nt
 
@@ -253,8 +230,8 @@ int BFGenerator::constructBfFromVcf(const string & vcf_filename, string bf_filen
 				break;
 			}
 
-			/*shift kmer to contain the next base*/
-			shift_kmer(kmer, next_base);
+            char *minseq = minimizerSNP(&seq[pos - SSL + i], i, alt_nt);
+            kmer_t kmer = encode_kmer(minseq, &has_n);
 
 			uint64_t kmer_lo = LO40(kmer);
 			bf->set_value(kmer_lo);

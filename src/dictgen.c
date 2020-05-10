@@ -743,16 +743,13 @@ void make_snp_dict_from_vcf(SeqVec ref, FILE *snp_file, FILE *out, bool **snp_lo
             const char *seq = chrom->seq;
             bool kmer_had_n;
 
-            if (kmer_had_n)
-                goto end;
-
             for (unsigned int i = 0; i < SSL; i++) {
                 const char next_base = (i ? seq[index + i] : alt);
 
                 if (next_base == 'N' || next_base == 'n')
                     goto end;
 
-                char *minseq = minimizerSNP(&seq[index - SSL], i, alt);
+                char *minseq = minimizerSNP(&seq[index - SSL + i], i, alt);
                 kmer_t kmer = encode_kmer(minseq, &kmer_had_n);
                 snp_kmers[i].kmer = kmer;
                 snp_kmers[i].pos = start_index + index - SSL + 1 + i;

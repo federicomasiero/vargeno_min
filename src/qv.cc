@@ -776,10 +776,8 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 		 * length.
 		 */
 		const size_t read_len_true = strlen(read) - 1;  // -1 because of newline char
-		const size_t len = (read_len_true/32)*32;
+		const size_t len = (read_len_true/SSL)*SSL;
 		//const bool need_terminal_kmer = (read_len_true != len);
-
-
 
 		bool hit_flag = true;
 
@@ -808,9 +806,10 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 		hit_flag = true;
 
 		size_t kmer_count = 0;
-		for (size_t i = 0; i < len; i += 32) {
+		for (size_t i = 0; i < len; i += SSL) {
 			bool kmer_had_n;
-			kmer_t kmer = encode_kmer(&read[i], &kmer_had_n);
+            char *seq = minimizer(&read[i]);
+			kmer_t kmer = encode_kmer(seq, &kmer_had_n);
 
 			if (kmer_had_n)
 			{
@@ -2189,7 +2188,7 @@ int main(const int argc, const char *argv[])
 		//assert(out_file);
 		
         genotype(refdict_file, snpdict_file, fastq_file, chrlens_file, out_filename, vcf_filename);
-		    
+
         fclose(refdict_file);
 	    fclose(snpdict_file);
 	    fclose(fastq_file);
