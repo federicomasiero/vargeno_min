@@ -45,9 +45,9 @@ int snp_kmer_cmp(const void *p1, const void *p2);
 
 uint64_t encode_base(const char base);
 
-char* minimizer(const char *kmer);
+char* minimizer(const char *kmer, uint32_t *offset);
 
-char* minimizerSNP(const char *kmer, unsigned int index, char var);
+char* minimizerSNP(const char *kmer, unsigned int index, char var, uint32_t *offset);
 
 kmer_t encode_kmer(const char *kmer, bool *kmer_had_n);
 

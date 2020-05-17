@@ -705,6 +705,7 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 	char qual[BUF_SIZE];
 
 	kmer_t kmers[BUF_SIZE];
+    uint32_t kmers_positions[BUF_SIZE];
 
 #define MAX_HITS 2000
 #define NO_MODIFICATION 10086
@@ -804,11 +805,12 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 		}
 
 		hit_flag = true;
+		uint32_t offset;
 
 		size_t kmer_count = 0;
 		for (size_t i = 0; i < len; i += SSL) {
 			bool kmer_had_n;
-            char *seq = minimizer(&read[i]);
+            char *seq = minimizer(&read[i], &offset);
 			kmer_t kmer = encode_kmer(seq, &kmer_had_n);
 
 			if (kmer_had_n)
@@ -816,7 +818,7 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 				hit_flag = false;
 				break;
 			}
-
+            kmers_positions[kmer_count] = i + offset;
 			kmers[kmer_count++] = kmer;
 		}
 
@@ -834,7 +836,7 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 			const kmer_t kmer = kmers[i];
 			const char qual_char = qual[i];
 			//const uint32_t offset = (need_terminal_kmer && i == (kmer_count - 1)) ? (read_len_true - 32) : 32*i;
-			const uint32_t offset = 32*i;
+			const uint32_t offset = kmers_positions[i];
 
 			struct kmer_entry *ref_hit = query_ref_dict(kmer, ref_jumpgate, ref_dict, ref_dict_size);
 			struct snp_kmer_entry *snp_hit = query_snp_dict(kmer, snp_jumpgate, snp_dict, snp_dict_size);

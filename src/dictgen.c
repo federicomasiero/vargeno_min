@@ -21,15 +21,16 @@ static size_t ref_to_constituent_kmers(struct kmer_info *kmers,
     kmer_t kmer;
     uint32_t index_true = *index;
     bool kmer_had_n;
+    uint32_t offset;
 
     for (size_t i = 0; i < kmers_len_max; i++) {
 
-        char *seq = minimizer(&ref[i]);
+        char *seq = minimizer(&ref[i], &offset);
         kmer = encode_kmer(seq, &kmer_had_n);
 
         if (!kmer_had_n) {
             kmers[kmers_len_true].kmer = kmer;
-            kmers[kmers_len_true].pos = index_true;
+            kmers[kmers_len_true].pos = index_true + offset;
             ++kmers_len_true;
         }
 
@@ -742,6 +743,7 @@ void make_snp_dict_from_vcf(SeqVec ref, FILE *snp_file, FILE *out, bool **snp_lo
 
             const char *seq = chrom->seq;
             bool kmer_had_n;
+            uint32_t offset;
 
             for (unsigned int i = 0; i < SSL; i++) {
                 const char next_base = (i ? seq[index + i] : alt);
@@ -749,10 +751,10 @@ void make_snp_dict_from_vcf(SeqVec ref, FILE *snp_file, FILE *out, bool **snp_lo
                 if (next_base == 'N' || next_base == 'n')
                     goto end;
 
-                char *minseq = minimizerSNP(&seq[index - SSL + i], i, alt);
+                char *minseq = minimizerSNP(&seq[index - SSL + i], i, alt, &offset);
                 kmer_t kmer = encode_kmer(minseq, &kmer_had_n);
                 snp_kmers[i].kmer = kmer;
-                snp_kmers[i].pos = start_index + index - SSL + 1 + i;
+                snp_kmers[i].pos = start_index + index - SSL + 1 + i + offset;
                 snp_kmers[i].snp = SNP_INFO_MAKE(SSL - 1 - i, ref_base_u);
                 snp_kmers[i].ref_freq = freq1_enc;
                 snp_kmers[i].alt_freq = freq2_enc;
