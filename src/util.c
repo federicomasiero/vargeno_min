@@ -118,6 +118,7 @@ char* minimizer(const char *kmer, uint32_t *offset) {
         if(i < K) {
             min[i] = 'Z';
         }
+    	printf("KMER: %c - SEQ: %c - REV: %c", (kmer + i), seq[i], reverse[i]);
     }
 	printf("PDC - minimizer - compare.\n");
     for(int i = 0; i < SSL - K; i++){
