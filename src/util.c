@@ -120,7 +120,7 @@ char* minimizer(const char *kmer, uint32_t *offset) {
         }
     }
 	printf("PDC - minimizer - compare.\n");
-    for(int i = 0; i < SSL - K + 1; i++){
+    for(int i = 0; i < SSL - K; i++){
         for(int j = 0; j < K; j++){
             tmpseq[j] = seq[i + j];
             tmprev[j] = reverse[i + j];
