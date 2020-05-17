@@ -108,7 +108,7 @@ static char rev(const char c) {
 char* minimizer(const char *kmer, uint32_t *offset) {
     char seq[SSL];
     char reverse[SSL];
-    char min[K];
+    char min[K] = "";
     char tmpseq[K];
     char tmprev[K];
 	printf("PDC - minimizer - init.\n");
@@ -118,28 +118,30 @@ char* minimizer(const char *kmer, uint32_t *offset) {
         if(i < K) {
             min[i] = 'Z';
         }
-    	printf("KMER: %c - SEQ: %c - REV: %c", (kmer + i), seq[i], reverse[i]);
+    	printf("Iteration: %d - KMER: %c - SEQ: %c - REV: %c\n", i, *(kmer + i), seq[i], reverse[SSL - i - 1]);
     }
 	printf("PDC - minimizer - compare.\n");
-    for(int i = 0; i < SSL - K; i++){
+    for(int i = 0; i < SSL - K + 1; i++){
         for(int j = 0; j < K; j++){
             tmpseq[j] = seq[i + j];
             tmprev[j] = reverse[i + j];
+            printf("Iteration: %d - TMPSEQ: %c - TMPREV: %c\n", j, tmpseq[j], tmprev[j]);
         }
+
         if(strcmp(tmpseq, min) < 0) {
-            strcpy(min, tmpseq);
+            printf("PDC - strcpy - sequence.\n");
+            strncpy(min, tmpseq, (sizeof min) - 1);
+            printf("PDC - strcpy - sequence done.\n");
+
             *offset = i;
         }
         if(strcmp(tmprev, min) < 0) {
-            strcpy(min, tmprev);
+            printf("PDC - strcpy - reverse.\n");
+            strncpy(min, tmprev, (sizeof min) - 1);
+            printf("PDC - strcpy - reverse done.\n");
             *offset = i;
         }
     }
-    free(seq);
-    free(reverse);
-    free(min);
-    free(tmprev);
-    free(tmpseq);
     return min;
 }
 
@@ -192,19 +194,14 @@ char* minimizerSNP(const char *kmer, unsigned int index, char var, uint32_t *off
             }
         }
         if(strcmp(tmpseq, min) < 0) {
-            strcpy(min, tmpseq);
+            strncpy(min, tmpseq, (sizeof min) - 1);
             *offset = i;
         }
         if(strcmp(tmprev, min) < 0) {
-            strcpy(min, tmprev);
+            strncpy(min, tmprev, (sizeof min) - 1);
             *offset = i;
         }
     }
-    free(seq);
-    free(reverse);
-    free(min);
-    free(tmprev);
-    free(tmpseq);
     return min;
 }
 
