@@ -2238,6 +2238,7 @@ int main(const int argc, const char *argv[])
 		bg->constructBfFromUcsc(snp_filename, snpbf_filename, false);
 		delete bg;
 	}else if (STREQ(opt, "index")){
+	    printf("Inizio del programma -> opt=INDEX.\n");
 		arg_check(argc, 3);
 		string ref_filename_string = argv[2];
 		string snp_filename_string = argv[3];
@@ -2326,9 +2327,12 @@ int main(const int argc, const char *argv[])
 			const char *refdict_filename = ref_dict_filename_string.c_str();
 			const char *snpdict_filename = snp_dict_filename_string.c_str();
 
+            printf("PDC prima del BFGenerator.\n");
 			BFGenerator * bg = new BFGenerator();
 			bg->readFasta(ref_filename_string);
+            printf("PDC prima del BFGenerator - Genome Seq.\n");
 			bg->constructBfFromGenomeseq(ref_bf_filename, false);
+            printf("PDC prima del BFGenerator - SNP VCF.\n");
 			bg->constructBfFromVcf(snp_filename_string, snp_bf_filename, false);
 			delete bg;
 
@@ -2356,6 +2360,7 @@ int main(const int argc, const char *argv[])
 
 			bool *snp_locations;
 			size_t snp_locs_size;
+            printf("PDC prima del make_snp Dict.\n");
 			make_snp_dict_from_vcf(ref, snp_file, snpdict_file, &snp_locations, &snp_locs_size);
 			assert(snp_locations);
 
@@ -2372,6 +2377,7 @@ int main(const int argc, const char *argv[])
 			FILE *refdict_file = fopen(refdict_filename, "wb");
 			assert(refdict_file);
 
+            printf("PDC prima del make_ref_dict.\n");
 			make_ref_dict(ref, refdict_file);
 
 			fclose(refdict_file);

@@ -112,6 +112,7 @@ int BFGenerator::constructBfFromGenomeseq(string bf_filename, bool is_canonical 
 		bool kmer_had_n;
 		kmer_t kmer;
 		uint32_t offset;
+        printf("PDC prima del insert kmers into BloomFilter.\n");
 		/*insert kmers into bloom filter*/
 		for (size_t i = 0; i < kmers_len_max; i++) {
 
