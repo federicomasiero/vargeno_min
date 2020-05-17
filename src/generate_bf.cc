@@ -111,11 +111,12 @@ int BFGenerator::constructBfFromGenomeseq(string bf_filename, bool is_canonical 
 
 		bool kmer_had_n;
 		kmer_t kmer;
+		uint32_t offset;
 		/*insert kmers into bloom filter*/
 		for (size_t i = 0; i < kmers_len_max; i++) {
 
             string kmer_string = it->seq.substr(i, SSL);
-            char *seq = minimizer(kmer_string.c_str());
+            char *seq = minimizer(kmer_string.c_str(), &offset);
             kmer = encode_kmer(seq, &kmer_had_n);
 
 			if (!kmer_had_n) {
@@ -214,6 +215,7 @@ int BFGenerator::constructBfFromVcf(const string & vcf_filename, string bf_filen
 
 		/*if the kmer before pos has N, then skip current SNP*/
 		bool has_n = false;
+		uint32_t offset;
 
 		/*
 		there is potential problem of this for loop:
@@ -230,7 +232,7 @@ int BFGenerator::constructBfFromVcf(const string & vcf_filename, string bf_filen
 				break;
 			}
 
-            char *minseq = minimizerSNP(&seq[pos - SSL + i], i, alt_nt);
+            char *minseq = minimizerSNP(&seq[pos - SSL + i], i, alt_nt, &offset);
             kmer_t kmer = encode_kmer(minseq, &has_n);
 
 			uint64_t kmer_lo = LO40(kmer);
