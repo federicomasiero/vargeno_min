@@ -112,13 +112,16 @@ int BFGenerator::constructBfFromGenomeseq(string bf_filename, bool is_canonical 
 		bool kmer_had_n;
 		kmer_t kmer;
 		uint32_t offset;
-        printf("PDC prima del insert kmers into BloomFilter.\n");
+        printf("PDC - constructBfFromGenomeseq.\n");
 		/*insert kmers into bloom filter*/
 		for (size_t i = 0; i < kmers_len_max; i++) {
 
             string kmer_string = it->seq.substr(i, SSL);
+            printf("PDC - constructBfFromGenomeseq - before minimizer.\n");
             char *seq = minimizer(kmer_string.c_str(), &offset);
+            printf("PDC - constructBfFromGenomeseq - post minimizer.\n");
             kmer = encode_kmer(seq, &kmer_had_n);
+            printf("PDC - constructBfFromGenomeseq - post encode.\n");
 
 			if (!kmer_had_n) {
 				/*
