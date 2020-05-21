@@ -1,3 +1,0 @@
-C:/Users/feder/projects/vargeno/cmake-build-debug/CMakeFiles/vargeno.dir
-C:/Users/feder/projects/vargeno/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/feder/projects/vargeno/cmake-build-debug/CMakeFiles/rebuild_cache.dir

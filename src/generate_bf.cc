@@ -120,6 +120,7 @@ int BFGenerator::constructBfFromGenomeseq(string bf_filename, bool is_canonical 
             printf("PDC - constructBfFromGenomeseq - before minimizer.\n");
             char *seq = minimizer(kmer_string.c_str(), &offset);
             printf("PDC - constructBfFromGenomeseq - post minimizer.\n");
+            printf("Minimizer %c", *seq);
             kmer = encode_kmer(seq, &kmer_had_n);
             printf("PDC - constructBfFromGenomeseq - post encode.\n");
 
