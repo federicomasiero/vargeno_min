@@ -2331,9 +2331,10 @@ int main(const int argc, const char *argv[])
 			BFGenerator * bg = new BFGenerator();
 			bg->readFasta(ref_filename_string);
             printf("PDC prima del BFGenerator - Genome Seq.\n");
-			bg->constructBfFromGenomeseq(ref_bf_filename, false);
+			//bg->constructBfFromGenomeseq(ref_bf_filename, false);
             printf("PDC prima del BFGenerator - SNP VCF.\n");
-			bg->constructBfFromVcf(snp_filename_string, snp_bf_filename, false);
+			//bg->constructBfFromVcf(snp_filename_string, snp_bf_filename, false);
+            printf("PDC post BFGenerator - SNP VCF.\n");
 			delete bg;
 
 			SeqVec ref = parse_fasta(ref_filename);

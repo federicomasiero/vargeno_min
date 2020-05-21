@@ -108,100 +108,134 @@ static char rev(const char c) {
 char* minimizer(const char *kmer, uint32_t *offset) {
     char seq[SSL];
     char reverse[SSL];
-    char min[K] = "";
+    char *min;
     char tmpseq[K];
     char tmprev[K];
-	printf("PDC - minimizer - init.\n");
+
+    min = (char *) malloc(K*sizeof(char));
+//	printf("PDC - minimizer - init.\n");
     for(int i = 0; i < SSL; i++) {
         seq[i] = (char) *(kmer + i);
         reverse[SSL - i - 1] = rev(seq[i]);
         if(i < K) {
             min[i] = 'Z';
         }
-    	printf("Iteration: %d - KMER: %c - SEQ: %c - REV: %c\n", i, *(kmer + i), seq[i], reverse[SSL - i - 1]);
+//    	printf("Iteration: %d - KMER: %c - SEQ: %c - REV: %c\n", i, *(kmer + i), seq[i], reverse[SSL - i - 1]);
     }
-	printf("PDC - minimizer - compare.\n");
+//	printf("PDC - minimizer - compare.\n");
     for(int i = 0; i < SSL - K + 1; i++){
         for(int j = 0; j < K; j++){
             tmpseq[j] = seq[i + j];
             tmprev[j] = reverse[i + j];
-            printf("Iteration: %d - TMPSEQ: %c - TMPREV: %c\n", j, tmpseq[j], tmprev[j]);
+//            printf("Iteration: %d - TMPSEQ: %c - TMPREV: %c\n", j, tmpseq[j], tmprev[j]);
         }
 
         if(strcmp(tmpseq, min) < 0) {
-            printf("PDC - strcpy - sequence.\n");
-            strncpy(min, tmpseq, (sizeof min) - 1);
-            printf("PDC - strcpy - sequence done.\n");
+//            printf("PDC - strcpy - sequence.\n");
+            strncpy(min, tmpseq, K);
+//            printf("PDC - strcpy - sequence done.\n");
 
             *offset = i;
         }
         if(strcmp(tmprev, min) < 0) {
-            printf("PDC - strcpy - reverse.\n");
-            strncpy(min, tmprev, (sizeof min) - 1);
-            printf("PDC - strcpy - reverse done.\n");
+//            printf("PDC - strcpy - reverse.\n");
+            strncpy(min, tmprev, K);
+//            printf("PDC - strcpy - reverse done.\n");
             *offset = i;
         }
     }
+/*    for(int j = 0; j < K; j++){
+        printf("%c", min[j]);
+    }
+*/
+
     return min;
 }
 
 char* minimizerSNP(const char *kmer, unsigned int index, char var, uint32_t *offset) {
     char seq[SSL];
     char reverse[SSL];
-    char min[K];
+    char *min;
     char tmpseq[K];
     char tmprev[K];
+
+    min = (char *) malloc(K*sizeof(char));
+
+    printf("PDC MinimizerSNP\n");
+    printf("index = %d", index);
     for(int i = 0; i < SSL; i++) {
         seq[i] = (char) *(kmer + i);
         reverse[SSL - i - 1] = rev(seq[i]);
         if(i < K) {
             min[i] = 'Z';
+            tmpseq[i] = 'Z';
+            tmprev[i] = 'Z';
         }
     }
     seq[SSL - 1 - index] = var;
+    printf("PDC tra seq");
     reverse[index] = rev(var);
+    printf("PDC post seq");
+
     for(int i = 0; i < SSL - K + 1; i++){
         if(index > (SSL - K - 1) && index < (K - 1)) {
+            printf("PDC if\n");
             for(int j = 0; j < K; j++) {
                 tmpseq[j] = seq[i + j];
                 tmprev[j] = reverse[i + j];
+
             }
         }
         else if(index < (SSL - K)) {
             // Variation -> SSL - K character ending the sequence. => 0 <= index < SSL - K
             if(i + K >= SSL - index) {
+
                 for(int j = 0; j < K; j++) {
                     tmpseq[j] = seq[i + j];
+
+
                 }
             }
             if(i <= index) {
+
                 for(int j = 0; j < K; j++) {
                     tmprev[j] = reverse[i + j];
+
+
                 }
             }
         }
         else {
             // Variation -> SSL - K character starting the sequence. => K - 1 < index < SSL
             if(i + K >= SSL - index) {
+                printf("PDC else - primo if\n");
+
                 for(int j = 0; j < K; j++) {
                     tmprev[j] = reverse[i + j];
                 }
             }
             if(i <= index) {
+                printf("PDC else - secondo if\n");
+
                 for(int j = 0; j < K; j++) {
                     tmpseq[j] = seq[i + j];
                 }
             }
         }
         if(strcmp(tmpseq, min) < 0) {
-            strncpy(min, tmpseq, (sizeof min) - 1);
+            strncpy(min, tmpseq, K);
             *offset = i;
         }
         if(strcmp(tmprev, min) < 0) {
-            strncpy(min, tmprev, (sizeof min) - 1);
+            strncpy(min, tmprev, K);
             *offset = i;
         }
     }
+    for(int j = 0; j < K; j++){
+        printf("%c", min[j]);
+    }
+
+
     return min;
 }
 
@@ -211,7 +245,9 @@ kmer_t encode_kmer(const char *kmer, bool *kmer_had_n)
 
 	kmer_t encoded_kmer = 0UL;
 	char *base = (char *)&kmer[31];
-	for (int i = 0; i < 32; i++) {
+    printf("PDC encode kmer\n");
+
+    for (int i = 0; i < 32; i++) {
 		encoded_kmer <<= 2;
 		switch (*base--) {
 		case 'A': case 'a': KMER_ADD_BASE(0UL); break;

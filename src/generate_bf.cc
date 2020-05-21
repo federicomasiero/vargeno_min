@@ -117,12 +117,15 @@ int BFGenerator::constructBfFromGenomeseq(string bf_filename, bool is_canonical 
 		for (size_t i = 0; i < kmers_len_max; i++) {
 
             string kmer_string = it->seq.substr(i, SSL);
-            printf("PDC - constructBfFromGenomeseq - before minimizer.\n");
-            char *seq = minimizer(kmer_string.c_str(), &offset);
-            printf("PDC - constructBfFromGenomeseq - post minimizer.\n");
-            printf("Minimizer %c", *seq);
+//            printf("PDC - constructBfFromGenomeseq - before minimizer.\n");
+            const char *seq = minimizer(kmer_string.c_str(), &offset);
+//            printf("\nPDC - constructBfFromGenomeseq - post minimizer.\n\n");
+/*            for(int j = 0; j < K; j++){
+                printf("%c", *(seq+j));
+            }
+*/
             kmer = encode_kmer(seq, &kmer_had_n);
-            printf("PDC - constructBfFromGenomeseq - post encode.\n");
+//            printf("PDC - constructBfFromGenomeseq - post encode.\n");
 
 			if (!kmer_had_n) {
 				/*

@@ -742,16 +742,26 @@ void make_snp_dict_from_vcf(SeqVec ref, FILE *snp_file, FILE *out, bool **snp_lo
             assert(kmers_len + SSL <= max_kmers_len);
 
             const char *seq = chrom->seq;
+/*            for(int j = 0; j < chrom->size; j++){
+                printf("%c", *(seq+j));
+            }
+*/
             bool kmer_had_n;
             uint32_t offset;
 
             for (unsigned int i = 0; i < SSL; i++) {
-                const char next_base = (i ? seq[index + i] : alt);
+                //const char next_base = (i ? seq[index + i] : alt);
 
-                if (next_base == 'N' || next_base == 'n')
-                    goto end;
-
+                //if (next_base == 'N' || next_base == 'n')
+                if(i >= SSL) {
+                    break;
+                }
+                printf("i = %d\n", i);
                 char *minseq = minimizerSNP(&seq[index - SSL + i], i, alt, &offset);
+                for(int j = 0; j < K; j++){
+                    printf("%c", *(minseq+j));
+                }
+
                 kmer_t kmer = encode_kmer(minseq, &kmer_had_n);
                 snp_kmers[i].kmer = kmer;
                 snp_kmers[i].pos = start_index + index - SSL + 1 + i + offset;
@@ -759,7 +769,6 @@ void make_snp_dict_from_vcf(SeqVec ref, FILE *snp_file, FILE *out, bool **snp_lo
                 snp_kmers[i].ref_freq = freq1_enc;
                 snp_kmers[i].alt_freq = freq2_enc;
             }
-
             memcpy(&kmers[kmers_len], snp_kmers, 32 * sizeof(*kmers));
             kmers_len += 32;
 
