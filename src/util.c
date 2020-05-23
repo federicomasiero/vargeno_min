@@ -161,8 +161,6 @@ char* minimizerSNP(const char *kmer, unsigned int index, char var, uint32_t *off
 
     min = (char *) malloc(K*sizeof(char));
 
-    printf("PDC MinimizerSNP\n");
-    printf("index = %d", index);
     for(int i = 0; i < SSL; i++) {
         seq[i] = (char) *(kmer + i);
         reverse[SSL - i - 1] = rev(seq[i]);
@@ -173,13 +171,10 @@ char* minimizerSNP(const char *kmer, unsigned int index, char var, uint32_t *off
         }
     }
     seq[SSL - 1 - index] = var;
-    printf("PDC tra seq");
     reverse[index] = rev(var);
-    printf("PDC post seq");
 
     for(int i = 0; i < SSL - K + 1; i++){
         if(index > (SSL - K - 1) && index < (K - 1)) {
-            printf("PDC if\n");
             for(int j = 0; j < K; j++) {
                 tmpseq[j] = seq[i + j];
                 tmprev[j] = reverse[i + j];
@@ -208,15 +203,11 @@ char* minimizerSNP(const char *kmer, unsigned int index, char var, uint32_t *off
         else {
             // Variation -> SSL - K character starting the sequence. => K - 1 < index < SSL
             if(i + K >= SSL - index) {
-                printf("PDC else - primo if\n");
-
                 for(int j = 0; j < K; j++) {
                     tmprev[j] = reverse[i + j];
                 }
             }
             if(i <= index) {
-                printf("PDC else - secondo if\n");
-
                 for(int j = 0; j < K; j++) {
                     tmpseq[j] = seq[i + j];
                 }
@@ -231,10 +222,6 @@ char* minimizerSNP(const char *kmer, unsigned int index, char var, uint32_t *off
             *offset = i;
         }
     }
-    for(int j = 0; j < K; j++){
-        printf("%c", min[j]);
-    }
-
 
     return min;
 }
@@ -245,7 +232,6 @@ kmer_t encode_kmer(const char *kmer, bool *kmer_had_n)
 
 	kmer_t encoded_kmer = 0UL;
 	char *base = (char *)&kmer[31];
-    printf("PDC encode kmer\n");
 
     for (int i = 0; i < 32; i++) {
 		encoded_kmer <<= 2;
