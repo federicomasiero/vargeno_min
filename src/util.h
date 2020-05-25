@@ -6,8 +6,8 @@
 #include "vartype.h"
 
 #define NEG_ONE  ((uint32_t)(-1))
-#define POW_2_32 (1UL << 8)
-#define POW_2_24 (1UL << 8)
+#define POW_2_32 (1UL << 32)
+#define POW_2_24 (1UL << 24)
 
 #define UNUSED(x) (void)(x);
 

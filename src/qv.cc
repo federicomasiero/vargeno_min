@@ -518,7 +518,9 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 
 	/* === Reference Dictionary Construction === */
 	const size_t ref_dict_size = read_uint64(refdict_file);
+	printf("PDC - dopo read uint");
 	const size_t ref_aux_table_size = read_uint64(refdict_file);
+    printf("PDC - dopo secondo read uint");
 
 	if (ref_dict_size > POW_2_32) {
 		fprintf(stderr, "Reference dictionary is too large (limit: %lu 32-mers)\n", POW_2_32);
@@ -538,6 +540,7 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 
 	ref_jumpgate[0] = 0;
 	last_hi = 0;
+	printf("PDC - prima ref");
 	for (size_t i = 0; i < ref_dict_size; i++) {
 		const kmer_t kmer = read_uint64(refdict_file);
 		const uint32_t pos = read_uint32(refdict_file);
@@ -621,6 +624,7 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 
 	snp_jumpgate[0] = 0;
 	last_hi = 0;
+	printf("PDC - prima snp");
 	for (size_t i = 0; i < snp_dict_size; i++) {
 		const kmer_t kmer = read_uint64(snpdict_file);
 		const uint32_t pos = read_uint32(snpdict_file);
@@ -766,7 +770,7 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 #if DEBUG
 		assert(!ferror(fastq_file));
 #endif
-
+		printf("PDC - start");
 		bool revcompl = false;
 		unordered_map<uint32_t, unordered_set<uint32_t>> index_2_kmer_pos_set;
 		/*
@@ -808,6 +812,7 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 		uint32_t offset;
 
 		size_t kmer_count = 0;
+		printf("PDC - prima for");
 		for (size_t i = 0; i < len; i += SSL) {
 			bool kmer_had_n;
             char *seq = minimizer(&read[i], &offset);
@@ -832,6 +837,7 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 		n_snp_hits = 0;
 
 		/* loop over k-mers, perform ref/SNP dict queries */
+		printf("PDC - prima secondo for");
 		for (size_t i = 0; i < kmer_count; i++) {
 			const kmer_t kmer = kmers[i];
 			const char qual_char = qual[i];
@@ -2123,7 +2129,7 @@ int main(const int argc, const char *argv[])
 		
 		const char *refdict_filename = ref_dict_filename_string.c_str();
 		const char *snpdict_filename = snp_dict_filename_string.c_str();
-		
+
 		const char *fastq_filename = argv[3];
 		//const char *chrlens_filename = argv[4];
 		string vcf_filename = argv[4];
