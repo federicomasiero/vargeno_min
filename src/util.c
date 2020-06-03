@@ -105,7 +105,7 @@ static char rev(const char c) {
     }
 }
 
-char* minimizer(const char *kmer, uint32_t *offset) {
+char* minimizer(const char *kmer, uint32_t *offset, int SSL) {
     char seq[SSL];
     char reverse[SSL];
     char *min;
@@ -152,7 +152,7 @@ char* minimizer(const char *kmer, uint32_t *offset) {
     return min;
 }
 
-char* minimizerSNP(const char *kmer, unsigned int index, char var, uint32_t *offset) {
+char* minimizerSNP(const char *kmer, unsigned int index, char var, uint32_t *offset, int SSL) {
     char seq[SSL];
     char reverse[SSL];
     char *min;

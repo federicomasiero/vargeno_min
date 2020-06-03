@@ -12,7 +12,8 @@
 static size_t ref_to_constituent_kmers(struct kmer_info *kmers,
                                        const char *ref,
                                        const size_t ref_len,
-                                       uint32_t *index)
+                                       uint32_t *index,
+                                       int SSL)
 {
     assert(ref_len >= SSL);
     const size_t kmers_len_max = ref_len - SSL + 1;
@@ -25,7 +26,7 @@ static size_t ref_to_constituent_kmers(struct kmer_info *kmers,
 
     for (size_t i = 0; i < kmers_len_max; i++) {
 
-        char *seq = minimizer(&ref[i], &offset);
+        char *seq = minimizer(&ref[i], &offset, SSL);
         kmer = encode_kmer(seq, &kmer_had_n);
 
         if (!kmer_had_n) {
@@ -265,7 +266,7 @@ static void write_snp_kmers(struct snp_kmer_info *kmers, const size_t kmers_len,
     printf("Ambig total k-mers:  %lu\n", ambig_total_kmers);
 }
 
-void make_ref_dict(SeqVec ref, FILE *out)
+void make_ref_dict(SeqVec ref, FILE *out, int SSL)
 {
     const size_t ref_len = ref.size;
 
@@ -282,7 +283,7 @@ void make_ref_dict(SeqVec ref, FILE *out)
     for (size_t i = 0; i < ref_len; i++) {
         const char *seq = ref.seqs[i].seq;
         const size_t seq_len = ref.seqs[i].size;
-        kmers_len += ref_to_constituent_kmers(&kmers[kmers_len], seq, seq_len, &index);
+        kmers_len += ref_to_constituent_kmers(&kmers[kmers_len], seq, seq_len, &index, SSL);
     }
 
     kmers = (struct kmer_info*)realloc(kmers, kmers_len * sizeof(*kmers));
@@ -549,7 +550,7 @@ void vcf_split_line(const char *str, char **out)
 }
 
 
-void make_snp_dict_from_vcf(SeqVec ref, FILE *snp_file, FILE *out, bool **snp_locations, size_t *snp_locs_size)
+void make_snp_dict_from_vcf(SeqVec ref, FILE *snp_file, FILE *out, bool **snp_locations, size_t *snp_locs_size, int SSL)
 {
 #define CHROM_FIELD   0
 #define INDEX_FIELD   1
@@ -749,7 +750,7 @@ void make_snp_dict_from_vcf(SeqVec ref, FILE *snp_file, FILE *out, bool **snp_lo
                 //const char next_base = (i ? seq[index + i] : alt);
 
                 //if (next_base == 'N' || next_base == 'n')
-                char *minseq = minimizerSNP(&seq[index - SSL + i], i, alt, &offset);
+                char *minseq = minimizerSNP(&seq[index - SSL + i], i, alt, &offset, SSL);
 
                 kmer_t kmer = encode_kmer(minseq, &kmer_had_n);
                 snp_kmers[i].kmer = kmer;

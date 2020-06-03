@@ -52,11 +52,11 @@ int main(const int argc, const char *argv[]) {
 	bg->readFasta(ref_filename);
 
     if(snp_format != "snp"){
-        bg->constructBfFromGenomeseq(refbf_filename, false);
+        //bg->constructBfFromGenomeseq(refbf_filename, false);
     }
 
 	if (snp_format == "vcf") {
-		bg->constructBfFromVcf(snp_filename, snpbf_filename, false);
+		//bg->constructBfFromVcf(snp_filename, snpbf_filename, false);
 	}
 	else if (snp_format == "ucsc") {
 		bg->constructBfFromUcsc(snp_filename, snpbf_filename, false);

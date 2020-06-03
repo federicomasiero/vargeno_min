@@ -25,7 +25,6 @@
 #define LO40(kmer) ((kmer) & 0x000000FFFFFFFFFF)
 
 #define K 32
-#define SSL 34
 
 void serialize_uint64(FILE *out, const uint64_t x);
 
@@ -45,9 +44,9 @@ int snp_kmer_cmp(const void *p1, const void *p2);
 
 uint64_t encode_base(const char base);
 
-char* minimizer(const char *kmer, uint32_t *offset);
+char* minimizer(const char *kmer, uint32_t *offset, int SSl);
 
-char* minimizerSNP(const char *kmer, unsigned int index, char var, uint32_t *offset);
+char* minimizerSNP(const char *kmer, unsigned int index, char var, uint32_t *offset, int SSL);
 
 kmer_t encode_kmer(const char *kmer, bool *kmer_had_n);
 

@@ -87,7 +87,7 @@ new algorithm
 Code Reviewed on 4/28/2017 by Chen Sun
 Unit Tested on 4/28/2017 by Chen Sun
 */
-int BFGenerator::constructBfFromGenomeseq(string bf_filename, bool is_canonical = false) {
+int BFGenerator::constructBfFromGenomeseq(string bf_filename, bool is_canonical = false, int SSL = 34) {
 
 	/*set bloom filter size*/
 	int64_t unique_kmers = REF_BF_BYTES;
@@ -118,7 +118,7 @@ int BFGenerator::constructBfFromGenomeseq(string bf_filename, bool is_canonical 
 
             string kmer_string = it->seq.substr(i, SSL);
 //            printf("PDC - constructBfFromGenomeseq - before minimizer.\n");
-            const char *seq = minimizer(kmer_string.c_str(), &offset);
+            const char *seq = minimizer(kmer_string.c_str(), &offset, SSL);
 //            printf("\nPDC - constructBfFromGenomeseq - post minimizer.\n\n");
 /*            for(int j = 0; j < K; j++){
                 printf("%c", *(seq+j));
@@ -165,7 +165,7 @@ updateBfFromVcf
 Code Reviewed by Chen Sun 3/24/2017
 --------
 */
-int BFGenerator::constructBfFromVcf(const string & vcf_filename, string bf_filename, bool is_canonical = false) {
+int BFGenerator::constructBfFromVcf(const string & vcf_filename, string bf_filename, bool is_canonical = false, int SSL = 34) {
 	string pre_chr_name = "XO";
 	string seq;
 
@@ -240,7 +240,7 @@ int BFGenerator::constructBfFromVcf(const string & vcf_filename, string bf_filen
 				break;
 			}
 
-            char *minseq = minimizerSNP(&seq[pos - SSL + i], i, alt_nt, &offset);
+            char *minseq = minimizerSNP(&seq[pos - SSL + i], i, alt_nt, &offset, SSL);
             kmer_t kmer = encode_kmer(minseq, &has_n);
 
 			uint64_t kmer_lo = LO40(kmer);

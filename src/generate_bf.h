@@ -194,8 +194,8 @@ public:
 	BFGenerator();
 	~BFGenerator();
 	int readFasta(string & fasta_filename);
-	int constructBfFromGenomeseq(string bf_filename, bool is_canonical);
-	int constructBfFromVcf(const string & vcf_filename, string bf_filename, bool is_canonical);
+	int constructBfFromGenomeseq(string bf_filename, bool is_canonical, int SSL);
+	int constructBfFromVcf(const string & vcf_filename, string bf_filename, bool is_canonical, int SSL);
 	int constructBfFromUcsc(const string & text_filename, string bf_filename, bool is_canonical);
     int constructBfFromEncode(const string & encode_filename, string bf_filename, bool is_canonical);
     static const int64_t REF_BF_BYTES = 1200000000; // in terms of bytes, 1 byte = 8 bit
