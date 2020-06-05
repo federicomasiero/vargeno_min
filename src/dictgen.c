@@ -577,7 +577,7 @@ void make_snp_dict_from_vcf(SeqVec ref, FILE *snp_file, FILE *out, bool **snp_lo
     assert(*snp_locations);
     memset(*snp_locations, false, *snp_locs_size);
 
-    const size_t max_kmers_len = lines * 32;  /* 32 k-mers per line */
+    const size_t max_kmers_len = lines * SSL;  /* SSL k-mers per line */
     struct snp_kmer_info *kmers = (struct snp_kmer_info*)malloc(max_kmers_len * sizeof(*kmers));
     assert(kmers);
     size_t kmers_len = 0;
