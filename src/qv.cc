@@ -518,9 +518,7 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 
 	/* === Reference Dictionary Construction === */
 	const size_t ref_dict_size = read_uint64(refdict_file);
-	printf("PDC - dopo read uint");
 	const size_t ref_aux_table_size = read_uint64(refdict_file);
-    printf("PDC - dopo secondo read uint");
 
 	if (ref_dict_size > POW_2_32) {
 		fprintf(stderr, "Reference dictionary is too large (limit: %lu 32-mers)\n", POW_2_32);
@@ -540,7 +538,6 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 
 	ref_jumpgate[0] = 0;
 	last_hi = 0;
-	printf("PDC - prima ref");
 	for (size_t i = 0; i < ref_dict_size; i++) {
 		const kmer_t kmer = read_uint64(refdict_file);
 		const uint32_t pos = read_uint32(refdict_file);
@@ -624,7 +621,6 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 
 	snp_jumpgate[0] = 0;
 	last_hi = 0;
-	printf("PDC - prima snp");
 	for (size_t i = 0; i < snp_dict_size; i++) {
 		const kmer_t kmer = read_uint64(snpdict_file);
 		const uint32_t pos = read_uint32(snpdict_file);
@@ -709,7 +705,6 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 	char qual[BUF_SIZE];
 
 	kmer_t kmers[BUF_SIZE];
-    uint32_t kmers_positions[BUF_SIZE];
 
 #define MAX_HITS 2000
 #define NO_MODIFICATION 10086
@@ -770,7 +765,7 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 #if DEBUG
 		assert(!ferror(fastq_file));
 #endif
-		printf("PDC - start");
+
 		bool revcompl = false;
 		unordered_map<uint32_t, unordered_set<uint32_t>> index_2_kmer_pos_set;
 		/*
@@ -781,8 +776,10 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 		 * length.
 		 */
 		const size_t read_len_true = strlen(read) - 1;  // -1 because of newline char
-		const size_t len = (read_len_true/SSL)*SSL;
+		const size_t len = (read_len_true/32)*32;
 		//const bool need_terminal_kmer = (read_len_true != len);
+
+
 
 		bool hit_flag = true;
 
@@ -809,21 +806,18 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 		}
 
 		hit_flag = true;
-		uint32_t offset;
 
 		size_t kmer_count = 0;
-		printf("PDC - prima for");
-		for (size_t i = 0; i < len; i += SSL) {
+		for (size_t i = 0; i < len; i += 32) {
 			bool kmer_had_n;
-            char *seq = minimizer(&read[i], &offset);
-			kmer_t kmer = encode_kmer(seq, &kmer_had_n);
+			kmer_t kmer = encode_kmer(&read[i], &kmer_had_n);
 
 			if (kmer_had_n)
 			{
 				hit_flag = false;
 				break;
 			}
-            kmers_positions[kmer_count] = i + offset;
+
 			kmers[kmer_count++] = kmer;
 		}
 
@@ -837,12 +831,11 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 		n_snp_hits = 0;
 
 		/* loop over k-mers, perform ref/SNP dict queries */
-		printf("PDC - prima secondo for");
 		for (size_t i = 0; i < kmer_count; i++) {
 			const kmer_t kmer = kmers[i];
 			const char qual_char = qual[i];
 			//const uint32_t offset = (need_terminal_kmer && i == (kmer_count - 1)) ? (read_len_true - 32) : 32*i;
-			const uint32_t offset = kmers_positions[i];
+			const uint32_t offset = 32*i;
 
 			struct kmer_entry *ref_hit = query_ref_dict(kmer, ref_jumpgate, ref_dict, ref_dict_size);
 			struct snp_kmer_entry *snp_hit = query_snp_dict(kmer, snp_jumpgate, snp_dict, snp_dict_size);
