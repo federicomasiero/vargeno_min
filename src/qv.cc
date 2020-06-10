@@ -472,7 +472,7 @@ static inline struct call choose_best_genotype(const int ref_cnt,
                                                const uint8_t ref_freq_enc,
                                                const uint8_t alt_freq_enc);
 
-static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, FILE *chrlens_file, string out_filename, string vcf_filename)
+static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, FILE *chrlens_file, string out_filename, string vcf_filename, int SSL)
 {
 	clock_t begin, end;
 	double time_spent;
@@ -810,7 +810,12 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 		size_t kmer_count = 0;
 		for (size_t i = 0; i < len; i += 32) {
 			bool kmer_had_n;
+<<<<<<< HEAD
 			kmer_t kmer = encode_kmer(&read[i], &kmer_had_n);
+=======
+            char *seq = minimizer(&read[i], &offset, SSL);
+			kmer_t kmer = encode_kmer(seq, &kmer_had_n);
+>>>>>>> 39db03c542e38ccc51bf7f0f2ef10e0d55ee3c9d
 
 			if (kmer_had_n)
 			{
@@ -1926,7 +1931,7 @@ int main(const int argc, const char *argv[])
 
 		bool *snp_locations;
 		size_t snp_locs_size;
-		make_snp_dict_from_vcf(ref, snp_file, snpdict_file, &snp_locations, &snp_locs_size);
+		//make_snp_dict_from_vcf(ref, snp_file, snpdict_file, &snp_locations, &snp_locs_size);
 		assert(snp_locations);
 
 #if GEN_FLT_DATA
@@ -1942,7 +1947,7 @@ int main(const int argc, const char *argv[])
 		FILE *refdict_file = fopen(refdict_filename, "wb");
 		assert(refdict_file);
 
-		make_ref_dict(ref, refdict_file);
+		//make_ref_dict(ref, refdict_file);
 
 		fclose(refdict_file);
 		free(snp_locations);
@@ -1998,7 +2003,7 @@ int main(const int argc, const char *argv[])
 		FILE *refdict_file = fopen(refdict_filename, "wb");
 		assert(refdict_file);
 
-		make_ref_dict(ref, refdict_file);
+		//make_ref_dict(ref, refdict_file);
 
 		fclose(refdict_file);
 		free(snp_locations);
@@ -2112,7 +2117,7 @@ int main(const int argc, const char *argv[])
 		double time_spent = 0;
 		begin = clock();
 
-        arg_check(argc, 4);
+        arg_check(argc, 5);
 		string prefix = argv[2];
 		const char *prefix_chars = argv[2];
         string ref_dict_filename_string = prefix+".ref.dict";
@@ -2128,7 +2133,9 @@ int main(const int argc, const char *argv[])
 		string vcf_filename = argv[4];
 		//string snp_bf_filename = argv[7];
 		string out_filename = argv[5];
-	
+        char *p;
+        const int SSL = (int) strtol(argv[6], &p, 10);
+
     #define CHRLENS_EXT ".chrlens"
 		char chrlens_filename[4096];
 		assert(strlen(prefix_chars) < (sizeof(chrlens_filename) - strlen(CHRLENS_EXT)));
@@ -2188,7 +2195,7 @@ int main(const int argc, const char *argv[])
         //FILE *out_file = fopen(out_filename, "w");
 		//assert(out_file);
 		
-        genotype(refdict_file, snpdict_file, fastq_file, chrlens_file, out_filename, vcf_filename);
+        genotype(refdict_file, snpdict_file, fastq_file, chrlens_file, out_filename, vcf_filename, SSL);
 
         fclose(refdict_file);
 	    fclose(snpdict_file);
@@ -2223,8 +2230,8 @@ int main(const int argc, const char *argv[])
 
 		BFGenerator * bg = new BFGenerator();
 		bg->readFasta(ref_filename);
-		bg->constructBfFromGenomeseq(refbf_filename, false);
-		bg->constructBfFromVcf(snp_filename, snpbf_filename, false);
+		//bg->constructBfFromGenomeseq(refbf_filename, false);
+		//bg->constructBfFromVcf(snp_filename, snpbf_filename, false);
 		delete bg;
 	}else if (STREQ(opt, "ucscbf")) {
 		arg_check(argc, 4);
@@ -2237,7 +2244,7 @@ int main(const int argc, const char *argv[])
 
 		BFGenerator * bg = new BFGenerator();
 		bg->readFasta(ref_filename);
-		bg->constructBfFromGenomeseq(refbf_filename, false);
+		//bg->constructBfFromGenomeseq(refbf_filename, false);
 		bg->constructBfFromUcsc(snp_filename, snpbf_filename, false);
 		delete bg;
 	}else if (STREQ(opt, "index")){
@@ -2246,10 +2253,12 @@ int main(const int argc, const char *argv[])
 		begin = clock();
 
 	    printf("Inizio del programma -> opt=INDEX.\n");
-		arg_check(argc, 3);
+		arg_check(argc, 4);
 		string ref_filename_string = argv[2];
 		string snp_filename_string = argv[3];
 		string prefix = argv[4];
+        char *p;
+        const int SSL = (int) strtol(argv[5], &p, 10);
 		vector<string> columns = split(snp_filename_string, '.');
 
 		/*if(columns[columns.size()-1] == "txt"){
@@ -2338,9 +2347,9 @@ int main(const int argc, const char *argv[])
 			BFGenerator * bg = new BFGenerator();
 			bg->readFasta(ref_filename_string);
             printf("PDC prima del BFGenerator - Genome Seq.\n");
-			bg->constructBfFromGenomeseq(ref_bf_filename, false);
+			bg->constructBfFromGenomeseq(ref_bf_filename, false, SSL);
             printf("PDC prima del BFGenerator - SNP VCF.\n");
-			bg->constructBfFromVcf(snp_filename_string, snp_bf_filename, false);
+			bg->constructBfFromVcf(snp_filename_string, snp_bf_filename, false, SSL);
             printf("PDC post BFGenerator - SNP VCF.\n");
 			delete bg;
 
@@ -2369,7 +2378,7 @@ int main(const int argc, const char *argv[])
 			bool *snp_locations;
 			size_t snp_locs_size;
             printf("PDC prima del make_snp Dict.\n");
-			make_snp_dict_from_vcf(ref, snp_file, snpdict_file, &snp_locations, &snp_locs_size);
+			make_snp_dict_from_vcf(ref, snp_file, snpdict_file, &snp_locations, &snp_locs_size, SSL);
 			assert(snp_locations);
 
 	#if GEN_FLT_DATA
@@ -2386,7 +2395,7 @@ int main(const int argc, const char *argv[])
 			assert(refdict_file);
 
             printf("PDC prima del make_ref_dict.\n");
-			make_ref_dict(ref, refdict_file);
+			make_ref_dict(ref, refdict_file, SSL);
 
 			fclose(refdict_file);
 			free(snp_locations);
