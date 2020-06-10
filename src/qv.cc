@@ -472,7 +472,7 @@ static inline struct call choose_best_genotype(const int ref_cnt,
                                                const uint8_t ref_freq_enc,
                                                const uint8_t alt_freq_enc);
 
-static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, FILE *chrlens_file, string out_filename, string vcf_filename, int SSL)
+static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, FILE *chrlens_file, string out_filename, string vcf_filename)
 {
 	clock_t begin, end;
 	double time_spent;
@@ -810,12 +810,7 @@ static void genotype(FILE *refdict_file, FILE *snpdict_file, FILE *fastq_file, F
 		size_t kmer_count = 0;
 		for (size_t i = 0; i < len; i += 32) {
 			bool kmer_had_n;
-<<<<<<< HEAD
 			kmer_t kmer = encode_kmer(&read[i], &kmer_had_n);
-=======
-            char *seq = minimizer(&read[i], &offset, SSL);
-			kmer_t kmer = encode_kmer(seq, &kmer_had_n);
->>>>>>> 39db03c542e38ccc51bf7f0f2ef10e0d55ee3c9d
 
 			if (kmer_had_n)
 			{
