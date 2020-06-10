@@ -2115,9 +2115,9 @@ int main(const int argc, const char *argv[])
 		}
 	} else if (STREQ(opt, "geno")) {
 
-		clock_t start_time, end_time;
-        
-        start_time = clock();
+		clock_t begin, end;
+		double time_spent;
+		begin = clock();
 
         arg_check(argc, 4);
 		string prefix = argv[2];
@@ -2212,6 +2212,10 @@ int main(const int argc, const char *argv[])
 			delete snp_bf;
 			snp_bf = NULL;
 		}
+		end = clock();
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+		printf("Genotyping Time: %f sec\n", time_spent);
+
 	}  else if (STREQ(opt, "help")) {
 		print_help();
 		exit(EXIT_SUCCESS);
@@ -2244,6 +2248,10 @@ int main(const int argc, const char *argv[])
 		bg->constructBfFromUcsc(snp_filename, snpbf_filename, false);
 		delete bg;
 	}else if (STREQ(opt, "index")){
+		clock_t begin, end;
+		double time_spent;
+		begin = clock();
+
 	    printf("Inizio del programma -> opt=INDEX.\n");
 		arg_check(argc, 3);
 		string ref_filename_string = argv[2];
@@ -2393,6 +2401,9 @@ int main(const int argc, const char *argv[])
 			seqvec_dealloc(&ref);
 			fclose(snp_file);
 			fclose(snpdict_file);
+		end = clock();
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+		printf("Pre-processing Time: %f sec\n", time_spent);
 
 		}else{
 
